@@ -1,0 +1,29 @@
+[tool.poetry]
+name = "insider-wallet-snuffy"
+version = "0.1.0"
+description = ""
+authors = ["Patryk"]
+readme = "README.md"
+packages = [{include = "src"}]
+package-mode = false
+
+[tool.poetry.dependencies]
+python = "3.11.10"
+pandas = "2.2.3"
+loguru = "0.7.2"
+ruff = "0.7.4"
+patchright = "^1"
+schedule = "^1.2.2"
+
+
+[tool.poetry.scripts]
+start = "src.main:run"
+
+[tool.ruff]
+line-length = 88
+indent-width = 2
+quote-style = "single"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
