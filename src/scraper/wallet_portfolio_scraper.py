@@ -56,7 +56,7 @@ class WalletPortfolioScraper:
 
     async def _close_modals(self, page: Page):
         modal_selectors = [
-            "button:has-text('I Know')",  # "I Know" button selector
+            "button:has-text('I Know')",
             "#chakra-modal--body-\\:r13\\: div button",
             "#chakra-modal-\\:ri\\: button",
             "#chakra-modal-\\:rj\\: button",
@@ -102,6 +102,13 @@ class WalletPortfolioScraper:
                 await browser.close()
                 await pwright.stop()
 
+    async def _click_30_days(self, page: Page):
+        button = page.locator(
+            "xpath=//*[@id='__next']/div/div/main/div[2]/div[1]/div[2]/div[1]/div[1]/div[2]"
+        )
+
+        await button.click()
+
     async def _process_wallet(
         self,
         wallet: str,
@@ -138,8 +145,8 @@ class WalletPortfolioScraper:
                     await self._close_modals(page)
                     await human_random_behaviour(page)
 
-                    await page.click("div:has-text('30d')")
-                    await human_delay(1, 3)
+                    await self._click_30_days(page)
+                    await human_delay(1, 5)
 
                     stats = await self._get_wallet_stats_data(page)
                     stats["wallet"] = wallet
@@ -148,7 +155,6 @@ class WalletPortfolioScraper:
                     stats["days_option"] = days_option.value
 
                     logger.info(f"Wallet {wallet} processed successfully")
-
                     return stats
 
                 except Exception as e:

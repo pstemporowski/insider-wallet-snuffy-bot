@@ -15,8 +15,8 @@ logger.add("error.log", rotation="500 MB", level="ERROR")
 
 async def main():
     for filter in [
-        "?sortBy=marketCapUsd&sortDirection=desc&limit=1000",
-        "?rankBy=trendingScoreH24&order=desc&minMarketCap=1000000&minAge=100",
+        "?sortBy=marketCapUsd&sortDirection=desc&limit=1000&minAge=50",
+        "?rankBy=trendingScoreH24&order=desc&minMarketCap=1000000&minAge=150",
     ]:
         try:
             # Initialize the scraper
