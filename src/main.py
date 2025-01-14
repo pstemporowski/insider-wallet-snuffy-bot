@@ -15,7 +15,6 @@ logger.add("error.log", rotation="500 MB", level="ERROR")
 
 async def main():
     for filter in [
-        "?sortBy=marketCapUsd&sortDirection=desc&limit=1000&minAge=50",
         "?rankBy=trendingScoreH24&order=desc&minMarketCap=1000000&minAge=150",
     ]:
         try:
@@ -25,7 +24,7 @@ async def main():
             res = await scraper.get_tokens(
                 "solana",
                 from_page=1,
-                to_page=1,
+                to_page=2,
                 filter_args=filter,
             )
 
@@ -34,7 +33,7 @@ async def main():
 
             # Filter the DataFrame for maker_count > 1000 and market_cap_usd > 500,000
             filtered_df = df[
-                (df["maker_count"] > 5000) & (df["market_cap_usd"] > 1000000)
+                (df["maker_count"] > 5000) & (df["market_cap_usd"] > 5000000)
             ]
             addrs = filtered_df["address"].tolist()
 
@@ -52,6 +51,7 @@ async def main():
                     )
                     logger.info(f"Found {len(token_traders)} traders for {addr}")
                     traders.extend(token_traders)
+                    break
                 except Exception as e:
                     logger.error(f"Error processing address {addr}: {str(e)}")
 

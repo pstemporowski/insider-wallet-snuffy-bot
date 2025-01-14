@@ -133,6 +133,7 @@ class DexscreenerTokensScraper:
         # Headers as per the provided order
         headers = [
             "token_symbol",
+            "PLACEHOLDER",
             "token_name",
             "price_usd",
             "age",
@@ -150,7 +151,9 @@ class DexscreenerTokensScraper:
         data = {}
         for header, text in zip(headers, texts):
             try:
-                if header == "token_symbol":
+                if header == "PLACEHOLDER":
+                    continue
+                elif header == "token_symbol":
                     continue
                 elif header == "token_name":
                     # Remove any numbers and newline characters from Token Name

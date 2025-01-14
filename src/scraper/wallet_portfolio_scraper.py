@@ -57,6 +57,7 @@ class WalletPortfolioScraper:
     async def _close_modals(self, page: Page):
         modal_selectors = [
             "button:has-text('I Know')",
+            "#chakra-modal--body-\\:rt\\: div.css-147wlxj:has-text('Got it')",
             "#chakra-modal--body-\\:r13\\: div button",
             "#chakra-modal-\\:ri\\: button",
             "#chakra-modal-\\:rj\\: button",
@@ -165,7 +166,6 @@ class WalletPortfolioScraper:
                         errMsg = "Timeout error"
 
                     errMsg = f"Error processing wallet {wallet}: {errMsg}. Retrying..."
-                    await page.screenshot(path=f"screenshots/{wallet}.png")
                     logger.error(errMsg)
 
                     if retries >= max_retries:
